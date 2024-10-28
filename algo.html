@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="algo.css" rel="stylesheet">
+
+    <title>Sentence Analyzer</title>
+    <style>
+      
+    </style>
+</head>
+<body>
+    <h1>Sentence Analyzer</h1>
+    <textarea id="sentenceInput" placeholder="Enter a sentence ending with a period..."></textarea>
+    <button onclick="analyzeSentence()">Analyze</button>
+    
+    <div class="result" id="resultContainer">
+        <h2>Results:</h2>
+        <p id="lengthResult"></p>
+        <p id="wordResult"></p>
+        <p id="vowelResult"></p>
+    </div>
+
+    <script>
+        function analyzeSentence() {
+            const sentence = document.getElementById('sentenceInput').value;
+            let length = 0;
+            let wordCount = 0;
+            let vowelCount = 0;
+
+            const vowels = "aeiouAEIOU";
+
+            for (let i = 0; i < sentence.length; i++) {
+                const char = sentence[i];
+                length++; // Increment length for each character
+                
+                if (vowels.includes(char)) {
+                    vowelCount++; // Check if the character is a vowel
+                }
+                
+                if (char === ' ' && i > 0 && sentence[i - 1] !== ' ') {
+                    wordCount++; // Increment word count
+                }
+            }
+
+            // Count the last word if the sentence is not just a period
+            if (length > 1 && sentence[length - 2] !== ' ') {
+                wordCount++;
+            }
+
+            length--; // Exclude the period
+
+            // Display results
+            document.getElementById('lengthResult').innerText = `Length of the sentence: ${length}`;
+            document.getElementById('wordResult').innerText = `Number of words: ${wordCount}`;
+            document.getElementById('vowelResult').innerText = `Number of vowels: ${vowelCount}`;
+
+            // Show results container
+            document.getElementById('resultContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
